@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: Digits;
+  src: url("./DS-DIGI.TTF");
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#App {
+  padding: 0.5vmin;
+  display: grid;
+  border: 0.1vmin solid black;
+  grid-template-areas:
+    "display display display display"
+    "clear . . ."
+    "seven eight nine divide"
+    "four five six multiply"
+    "one two three subtract"
+    "negate zero decimal add"
+    "equals equals equals equals";
+  grid-template-columns: repeat(4, 10vmin);
+  grid-template-rows: repeat(7, 10vmin);
+  gap: 0.5vmin;
+}
+#display {
+  grid-area: display;
+  border: 0.1vmin solid black;
+  padding: 1vmin;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+#display #string {
+  font-family: monospace;
+  /* display: none; */
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#display #input {
+  font-family: Digits;
+}
+#clear {
+  grid-area: clear;
+}
+#one {
+  grid-area: one;
+}
+#two {
+  grid-area: two;
+}
+#three {
+  grid-area: three;
+}
+#four {
+  grid-area: four;
+}
+#five {
+  grid-area: five;
+}
+#six {
+  grid-area: six;
+}
+#seven {
+  grid-area: seven;
+}
+#eight {
+  grid-area: eight;
+}
+#nine {
+  grid-area: nine;
+}
+#negate {
+  grid-area: negate;
+}
+#zero {
+  grid-area: zero;
+}
+#decimal {
+  grid-area: decimal;
+}
+#divide {
+  grid-area: divide;
+}
+#multiply {
+  grid-area: multiply;
+}
+#subtract {
+  grid-area: subtract;
+}
+#add {
+  grid-area: add;
+}
+#equals {
+  grid-area: equals;
 }
