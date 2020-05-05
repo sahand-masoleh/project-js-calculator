@@ -5,10 +5,14 @@ function App() {
   const [input, setInput] = useState("0");
   const [string, setString] = useState([]);
   const [lastResult, setLastResult] = useState("");
-  const [lastMath, setLastMath] = useState("");
   const [displayResult, setDisplayResult] = useState(false);
+  const [lastOperator, setLastOperator] = useState("");
+  const [lastFormula, setLastFormula] = useState([]);
 
   const numInput = (button) => {
+    if (lastOperator === "=") {
+      clear();
+    }
     setDisplayResult(false);
     let newInput = button.target.value;
     let decimal = /\./;
@@ -19,50 +23,63 @@ function App() {
   };
 
   const negate = () => {
+    if (displayResult) {
+      setInput(lastResult);
+    }
+    setDisplayResult(false);
     setInput((prevInput) => prevInput * -1);
   };
 
   const opInput = (button) => {
-    let newInput = button.target.value;
-    setString(
-      (prevString) =>
-        (input === "0" && string !== ""
-          ? prevString.slice(0, prevString.length - 1)
-          : input === "."
-          ? prevString + "0"
-          : prevString + input) + newInput
-    );
-    equals(button);
+    let operator = button.target.value;
+    setLastOperator(operator);
+    let lastInput = string.length - 1;
+    if (input === "0" && ["+", "-", "*", "/"].includes(string[lastInput])) {
+      setString((prevString) => [prevString.slice(0, lastInput), operator]);
+    } else if (input === ".") {
+      setString((prevString) => [...prevString, 0, operator]);
+      equals(button);
+    } else {
+      setString((prevString) => [
+        ...prevString,
+        !displayResult ? input : null,
+        operator,
+      ]);
+      equals(button);
+    }
   };
 
   const clear = () => {
     setInput("0");
     setString("");
     setLastResult("");
-    // setLastMath("");
     setDisplayResult(false);
+    setLastOperator("");
+    setLastFormula([]);
   };
 
   const equals = (button) => {
-    let newInput = button.target.value;
-    let result = eval(string + input);
+    let result = eval([...string, !displayResult ? input : null].join(""));
     setInput("0");
     setLastResult(result.toString());
     setDisplayResult(true);
-    if (newInput === "=") {
-      setString(result.toString());
-      // setLastMath(string + input);
+    if (button.target.value === "=") {
+      setLastOperator("=");
+      setLastFormula([...string, input]);
+      setString([result.toString()]);
     }
   };
   return (
     <div id="App">
       <div id="display">
-        <p id="string">{string === "" ? "0" : string}</p>
+        <p id="string">
+          {lastOperator === "=" ? [...lastFormula, "="] : string}
+        </p>
         <p id="input">{displayResult ? lastResult : input}</p>
       </div>
 
       <button id="clear" onClick={clear}>
-        c
+        C
       </button>
 
       <NumButton id="seven" value="7" onClick={numInput} />
@@ -85,11 +102,7 @@ function App() {
       <NumButton id="decimal" value="." onClick={numInput} />
       <NumButton id="add" value="+" onClick={opInput} />
 
-      <NumButton id="equals" value="=" onClick={opInput} />
-
-      {/* <button id="equals" value="=" onClick={equals}>
-        =
-      </button> */}
+      <NumButton id="equals" value="=" onClick={equals} />
     </div>
   );
 }

@@ -37,11 +37,13 @@ html {
   flex-direction: column;
 }
 #display #string {
+  height: 33%;
   font-family: monospace;
-  /* display: none; */
 }
 #display #input {
+  height: 66%;
   font-family: Digits;
+  font-size: 2em;
 }
 #clear {
   grid-area: clear;
