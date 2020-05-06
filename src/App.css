@@ -36,7 +36,7 @@ html {
   display: flex;
   flex-direction: column;
 }
-#display #string {
+#display #formula {
   height: 33%;
   font-family: monospace;
 }

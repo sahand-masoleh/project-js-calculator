@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
   const [input, setInput] = useState("0");
-  const [string, setString] = useState([]);
-  const [lastResult, setLastResult] = useState("");
-  const [displayResult, setDisplayResult] = useState(false);
-  const [lastOperator, setLastOperator] = useState("");
-  const [lastFormula, setLastFormula] = useState([]);
+  const [formula, setFormula] = useState([]);
+  const [result, setRresult] = useState("");
+  const clear = () => {
+    setInput("0");
+    setFormula([]);
+    setRresult("");
+  };
+
+  useEffect(() => {
+    setRresult((prevResult) =>
+      eval([prevResult, ...formula.slice(-3, -1)].join(""))
+    );
+  }, [formula]);
 
   const numInput = (button) => {
-    if (lastOperator === "=") {
-      clear();
-    }
-    setDisplayResult(false);
     let newInput = button.target.value;
     let decimal = /\./;
     let number = /[0-9]/;
@@ -22,60 +26,34 @@ function App() {
     }
   };
 
-  const negate = () => {
-    if (displayResult) {
-      setInput(lastResult);
+  const validatedInput = (v) => {
+    if (v === ".") {
+      return "0";
+    } else {
+      return v;
     }
-    setDisplayResult(false);
-    setInput((prevInput) => prevInput * -1);
+  };
+
+  const negate = () => {
+    setInput((prevInput) => validatedInput(prevInput) * -1);
   };
 
   const opInput = (button) => {
     let operator = button.target.value;
-    setLastOperator(operator);
-    let lastInput = string.length - 1;
-    if (input === "0" && ["+", "-", "*", "/"].includes(string[lastInput])) {
-      setString((prevString) => [prevString.slice(0, lastInput), operator]);
-    } else if (input === ".") {
-      setString((prevString) => [...prevString, 0, operator]);
-      equals(button);
-    } else {
-      setString((prevString) => [
-        ...prevString,
-        !displayResult ? input : null,
-        operator,
-      ]);
-      equals(button);
-    }
+    setFormula((prevFormula) => [
+      ...prevFormula,
+      validatedInput(input), //To avoid inputs of only a decimal sign.
+      operator,
+    ]);
+    setInput("0");
   };
 
-  const clear = () => {
-    setInput("0");
-    setString("");
-    setLastResult("");
-    setDisplayResult(false);
-    setLastOperator("");
-    setLastFormula([]);
-  };
-
-  const equals = (button) => {
-    let result = eval([...string, !displayResult ? input : null].join(""));
-    setInput("0");
-    setLastResult(result.toString());
-    setDisplayResult(true);
-    if (button.target.value === "=") {
-      setLastOperator("=");
-      setLastFormula([...string, input]);
-      setString([result.toString()]);
-    }
-  };
+  const equals = (button) => {};
   return (
     <div id="App">
       <div id="display">
-        <p id="string">
-          {lastOperator === "=" ? [...lastFormula, "="] : string}
-        </p>
-        <p id="input">{displayResult ? lastResult : input}</p>
+        <p id="formula">{formula}</p>
+        <p id="input">{input}</p>
       </div>
 
       <button id="clear" onClick={clear}>
@@ -102,7 +80,7 @@ function App() {
       <NumButton id="decimal" value="." onClick={numInput} />
       <NumButton id="add" value="+" onClick={opInput} />
 
-      <NumButton id="equals" value="=" onClick={equals} />
+      {/* <NumButton id="equals" value="=" onClick={opInput} /> */}
     </div>
   );
 }
