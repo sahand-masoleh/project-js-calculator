@@ -1,0 +1,23 @@
+[33mcommit a0db14dd4a69a37641edec4fb7586c72f9a16f0a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Sahand Masoleh <sahand.masoleh@gmail.com>
+Date:   Thu May 7 01:55:06 2020 +0800
+
+    Everything works, (equals not implemented)
+
+[33mcommit 1af248302978ee75a2521e543c54be1ace11d920[m
+Author: Sahand Masoleh <sahand.masoleh@gmail.com>
+Date:   Wed May 6 00:32:41 2020 +0800
+
+    2.0 Arrays
+
+[33mcommit dff9e73b5c39ff8a50e97e0628b4247de4548e57[m
+Author: Sahand Masoleh <sahand.masoleh@gmail.com>
+Date:   Tue May 5 21:52:35 2020 +0800
+
+    1.0
+
+[33mcommit 335818c63c089770698fb2efe4bc519c1b438d40[m
+Author: Sahand Masoleh <sahand.masoleh@gmail.com>
+Date:   Mon May 4 16:46:19 2020 +0800
+
+    Initialize project using Create React App

@@ -17,6 +17,7 @@ html {
   padding: 0.5vmin;
   display: grid;
   border: 0.1vmin solid black;
+  border-radius: 0.25rem;
   grid-template-areas:
     "display display display display"
     "clear . . ."

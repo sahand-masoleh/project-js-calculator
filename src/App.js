@@ -5,6 +5,7 @@ function App() {
   const [input, setInput] = useState("0");
   const [formula, setFormula] = useState([]);
   const [result, setRresult] = useState("");
+  const [equalsPressed, setEqualsPressed] = useState(false);
   const clear = () => {
     setInput("0");
     setFormula([]);
@@ -12,6 +13,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log([result, ...formula.slice(-3, -1)]);
     setRresult((prevResult) =>
       eval([prevResult, ...formula.slice(-3, -1)].join(""))
     );
@@ -21,8 +23,14 @@ function App() {
     let newInput = button.target.value;
     let decimal = /\./;
     let number = /[0-9]/;
-    if (number.test(newInput) || (newInput === "." && !decimal.test(input))) {
-      setInput((prevInput) => (input !== "0" ? prevInput : "") + newInput);
+    if (!equalsPressed) {
+      if (number.test(newInput) || (newInput === "." && !decimal.test(input))) {
+        setInput((prevInput) => (input !== "0" ? prevInput : "") + newInput);
+      }
+    } else if (setEqualsPressed) {
+      setEqualsPressed(false);
+      clear();
+      setInput(newInput);
     }
   };
 
@@ -35,20 +43,42 @@ function App() {
   };
 
   const negate = () => {
-    setInput((prevInput) => validatedInput(prevInput) * -1);
+    if (!equalsPressed) {
+      setInput((prevInput) => validatedInput(prevInput) * -1);
+    } else if (equalsPressed) {
+      setInput(result * -1);
+      setEqualsPressed(false);
+    }
   };
 
   const opInput = (button) => {
     let operator = button.target.value;
-    setFormula((prevFormula) => [
-      ...prevFormula,
-      validatedInput(input), //To avoid inputs of only a decimal sign.
-      operator,
-    ]);
+    if (!equalsPressed) {
+      if (input !== "0") {
+        setFormula((prevFormula) => [
+          ...prevFormula,
+          validatedInput(input), //To avoid inputs of only a decimal sign.
+          operator,
+        ]);
+      } else {
+        setFormula((prevFormula) => [...prevFormula.slice(0, -1), operator]);
+      }
+    } else if (equalsPressed) {
+      setFormula((prevFormula) => [...prevFormula.slice(0, -1), operator]);
+      setEqualsPressed(false);
+    }
     setInput("0");
   };
 
-  const equals = (button) => {};
+  const equals = () => {
+    setEqualsPressed(true);
+    setFormula((prevFormula) => [
+      ...prevFormula,
+      validatedInput(input), //To avoid inputs of only a decimal sign.
+      "=",
+    ]);
+    setInput("0");
+  };
   return (
     <div id="App">
       <div id="display">
@@ -80,7 +110,7 @@ function App() {
       <NumButton id="decimal" value="." onClick={numInput} />
       <NumButton id="add" value="+" onClick={opInput} />
 
-      {/* <NumButton id="equals" value="=" onClick={opInput} /> */}
+      <NumButton id="equals" value="=" onClick={equals} />
     </div>
   );
 }
