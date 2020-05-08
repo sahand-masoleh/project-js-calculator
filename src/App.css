@@ -8,19 +8,22 @@
   box-sizing: border-box;
 }
 html {
+  background-color: #e73b63;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #App {
-  padding: 0.5vmin;
+  background-color: #fd6b4a;
+  padding: 1vmin;
   display: grid;
-  border: 0.1vmin solid black;
-  border-radius: 0.25rem;
+  border: 1vmin solid black;
+  border-radius: 0.5rem;
+  box-shadow: ;
   grid-template-areas:
     "display display display display"
-    "clear . . ."
+    "clear . . backspace"
     "seven eight nine divide"
     "four five six multiply"
     "one two three subtract"
@@ -28,26 +31,52 @@ html {
     "equals equals equals equals";
   grid-template-columns: repeat(4, 10vmin);
   grid-template-rows: repeat(7, 10vmin);
-  gap: 0.5vmin;
+  gap: 0.2em;
+}
+@media (orientation: portrait) {
+  #App {
+  }
 }
 #display {
+  box-shadow: 0 0 0.2em 0.1em rgba(0, 0, 0, 0.2) inset;
   grid-area: display;
+  background-color: lightgrey;
   border: 0.1vmin solid black;
   padding: 1vmin;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 30% 70%;
+  justify-items: start;
 }
 #display #formula {
-  height: 33%;
   font-family: monospace;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
 }
 #display #input {
-  height: 66%;
   font-family: Digits;
   font-size: 2em;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+}
+button {
+  font-size: 1em;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bolder;
+  color: #3f220b;
+  background-color: #fd913e;
+  border-radius: 0.1em;
+  border: 0.1vmin solid black;
 }
 #clear {
   grid-area: clear;
+}
+#backspace {
+  grid-area: backspace;
 }
 #one {
   grid-area: one;
