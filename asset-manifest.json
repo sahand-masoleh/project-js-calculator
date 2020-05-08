@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/project-js-calculator/static/css/main.a64508d1.chunk.css",
+    "main.js": "/project-js-calculator/static/js/main.ae58c48e.chunk.js",
+    "main.js.map": "/project-js-calculator/static/js/main.ae58c48e.chunk.js.map",
+    "runtime-main.js": "/project-js-calculator/static/js/runtime-main.77321d80.js",
+    "runtime-main.js.map": "/project-js-calculator/static/js/runtime-main.77321d80.js.map",
+    "static/js/2.5d80f041.chunk.js": "/project-js-calculator/static/js/2.5d80f041.chunk.js",
+    "static/js/2.5d80f041.chunk.js.map": "/project-js-calculator/static/js/2.5d80f041.chunk.js.map",
+    "index.html": "/project-js-calculator/index.html",
+    "precache-manifest.2278f35e279eb38c5a1345d4dc198bb2.js": "/project-js-calculator/precache-manifest.2278f35e279eb38c5a1345d4dc198bb2.js",
+    "service-worker.js": "/project-js-calculator/service-worker.js",
+    "static/css/main.a64508d1.chunk.css.map": "/project-js-calculator/static/css/main.a64508d1.chunk.css.map",
+    "static/js/2.5d80f041.chunk.js.LICENSE.txt": "/project-js-calculator/static/js/2.5d80f041.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/project-js-calculator/static/media/DS-DIGI.63f874d1.TTF"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.77321d80.js",
+    "static/js/2.5d80f041.chunk.js",
+    "static/css/main.a64508d1.chunk.css",
+    "static/js/main.ae58c48e.chunk.js"
+  ]
+}
